@@ -7,6 +7,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('django/jsonresponsemomodel/', views.no_rest_no_model),
     path('django/jsonresponsefrommodel/', views.no_rest_from_model),
-    path('django/FBV_List/', views.FBV_List), 
-    
+    path('django/FBV_List/', views.FBV_List),   
 ]
+

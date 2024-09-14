@@ -2,7 +2,6 @@ from django.shortcuts import render
 from .models import *
 from .serializers import GuestSerializer, MovieSerializer, ReservationSerializer
 from rest_framework import status, filters
-
 from django.http import JsonResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -10,19 +9,18 @@ from rest_framework.decorators import api_view
 def no_rest_no_model(request):
     guests = [
         {
-            'id': 1,  # Added missing comma here
+            'id': 1, 
             'name': "Hamada", 
-            'mobile': "12345",  # Changed to string for consistency
+            'mobile': "12345",  
         },
         {
             'id': 2, 
             'name': "Nehal", 
-            'mobile': "25354",  # Fixed the typo here and changed to string
+            'mobile': "25354",  
         },
     ]
     return JsonResponse(guests, safe=False) 
 
-# No REST and no model query
 def no_rest_from_model(request): 
     data = Guest.objects.all() 
     response = {
@@ -38,9 +36,15 @@ def FBV_List(request):
         return Response(serializer.data)
     
     elif request.method == 'POST':
-        serializer = GuestSerializer(data=request.data)  # Fixed typo from 'date' to 'data'
+        serializer = GuestSerializer(data=request.data) 
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)  # Return errors if invalid
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)  
+
+
+@api_view() 
+
+def FBV_pk(request): 
+    pass
