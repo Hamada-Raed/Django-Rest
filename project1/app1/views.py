@@ -138,8 +138,11 @@ class Mixins_pk(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.Destr
 class Generics_list(generics.ListCreateAPIView):
     queryset = Guest.objects.all()
     serializer_class = GuestSerializer
-    authentication_classes = [BasicAuthentication]
-    permission_classes = [IsAuthenticated]
+    # authentication_classes = [BasicAuthentication]
+    # permission_classes = [IsAuthenticated]
+    # Token 
+    authentication_classes = [TokenAuthentication]
+   
 
 class Generics_pk(generics.RetrieveUpdateDestroyAPIView):
     queryset = Guest.objects.all()

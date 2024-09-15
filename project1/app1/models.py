@@ -1,5 +1,19 @@
 from django.db import models
 
+#Token is a model: 
+from django.db.models.signals import post_save
+from django.dispatch import receiver # to perform the request
+from rest_framework.authtoken.models import Token
+from django.conf import settings
+
+@receiver(post_save, sender = settings.AUTH_USER_MODEL)
+def TokenCreate(sender, instance, created, **kwargs ): 
+    if created: 
+        Token.objects.create(user =instance)
+
+
+
+
 class Movie(models.Model): 
     hall = models.CharField(max_length=10)
     movie = models.CharField(max_length=10)

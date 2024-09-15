@@ -3,6 +3,7 @@ from django.contrib import admin
 from django.urls import path, include
 from app1 import views
 from rest_framework.routers import DefaultRouter
+from rest_framework.authtoken.views import obtain_auth_token
 
 
 
@@ -34,6 +35,9 @@ urlpatterns = [
     path('fvb/new_resrvation', views.new_resrvation), 
 
     #Permission and authentication
-    path('api-auth', include('rest_framework.urls')) # add logout option to the user. 
+    path('api-auth', include('rest_framework.urls')), # add logout option to the user. 
+
+    # Token URl 
+    path('api-token-auth', obtain_auth_token)
 
 ]
