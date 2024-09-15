@@ -62,4 +62,6 @@ urlpatterns = [
     #path('post/generics/', views.Post_list.as_view()),
     path('post/generics/<int:pk>', views.Post_pk.as_view()),
 
+    path('print_objects/', views.print_objects),
+
 ]

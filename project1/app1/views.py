@@ -12,10 +12,16 @@ from rest_framework import generics, mixins, viewsets
 from rest_framework.authentication import BasicAuthentication, TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from .permissions import IsAuthorOrReadOnly
+from django.http import HttpResponse
+
+# Print the name objects in the model (Guest)
+# def print_objects(request):
+#     guests = Guest.objects.all()
+#     guest_names = ', '.join([guest.name for guest in guests])  
+#     return HttpResponse(guest_names) 
 
 
 
-#1 without REST and no model query FBV
 def no_rest_no_model(request):
     guests = [
         {
