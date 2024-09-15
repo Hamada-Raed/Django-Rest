@@ -1,8 +1,7 @@
-# app1/admin.py
 from django.contrib import admin
-from .models import Guest, Movie, Reservation
+from .models import Movie, Guest, Reservation, Post
 
-# Ensure each model is registered only once
-admin.site.register(Guest)
 admin.site.register(Movie)
+admin.site.register(Guest)
 admin.site.register(Reservation)
+admin.site.register(Post)

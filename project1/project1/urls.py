@@ -1,43 +1,65 @@
-
 from django.contrib import admin
 from django.urls import path, include
 from app1 import views
 from rest_framework.routers import DefaultRouter
 from rest_framework.authtoken.views import obtain_auth_token
 
-
-
 router = DefaultRouter()
-router.register('guests', views.viewset_guest)
+router.register('guests', views.viewsets_guest)
 router.register('movies', views.viewsets_movie)
-router.register('reservation', views.viewsets_reservation)
-
-
+router.register('reservations', views.viewsets_reservation)
 
 urlpatterns = [
-    #ways to extract JSON data
     path('admin/', admin.site.urls),
-    path('django/jsonresponsemomodel/', views.no_rest_no_model),
+
+    #1
+    path('django/jsonresponsenomodel/', views.no_rest_no_model),
+
+    #2 
     path('django/jsonresponsefrommodel/', views.no_rest_from_model),
-    path('django/FBV_List/', views.FBV_List),   # List view, no pk argument
-    path('django/FBV_pk/<int:pk>/', views.FBV_pk),  # Detail view with pk argument
-    path('django/CVB_List/', views.CVB_List.as_view()),
-    path('django/CVB_pf/<int:pk>', views.CVB_pf.as_view()), 
-    path('django/mixins_list/', views.mixins_list.as_view()), 
-    path('django/Mixins_pk/<int:pk>', views.Mixins_pk.as_view()), 
-    path('django/Generics_list/', views.Generics_list.as_view()),
-    path('django/Generics_list/', views.Generics_list.as_view()),
-    path('django/Generics_pk/<int:pk>', views.Generics_pk.as_view()),
-    path('django/viewset_guest/', include(router.urls)), #The easiest way.
+    
+    #3.1 GET POST from rest framework function based view @api_view
+    path('rest/fbv/', views.FBV_List),
 
-    #find movie 
-    path('fbv/findMovie/', views.find_movie),
-    path('fvb/new_resrvation', views.new_resrvation), 
+    #3.2 GET PUT DELETE from rest framework function based view @api_view
+    path('rest/fbv/<int:pk>', views.FBV_pk),
 
-    #Permission and authentication
-    path('api-auth', include('rest_framework.urls')), # add logout option to the user. 
+    #4.1 GET POST from rest framework class based view APIView
+    path('rest/cbv/', views.CBV_List.as_view()),
 
-    # Token URl 
-    path('api-token-auth', obtain_auth_token)
+    #4.2 GET PUT DELETE from rest framework class based view APIView
+    path('rest/cbv/<int:pk>', views.CBV_pk.as_view()),
+
+    #5.1 GET POST from rest framework class based view mixins
+    path('rest/mixins/', views.mixins_list.as_view()),
+
+    #5.2 GET PUT DELETE from rest framework class based view mixins
+    path('rest/mixins/<int:pk>', views.mixins_pk.as_view()),
+
+    #6.1 GET POST from rest framework class based view generics
+    path('rest/generics/', views.generics_list.as_view()),
+
+    #6.2 GET PUT DELETE from rest framework class based view generics
+    path('rest/generics/<int:pk>', views.generics_pk.as_view()),
+
+    #7 Viewsets
+    path('rest/viewsets/', include(router.urls)),
+
+    #8 find movie 
+    path('fbv/findmovie', views.find_movie),
+
+    #9 new reservation
+    path('fbv/newreservation',views.new_reservation),
+
+    #10 rest auth url 
+    path('api-auth', include('rest_framework.urls')),
+
+    #11 Token authentication
+    path('api-token-auth', obtain_auth_token),
+
+
+    #12 Post pk generics Post_pk
+    #path('post/generics/', views.Post_list.as_view()),
+    path('post/generics/<int:pk>', views.Post_pk.as_view()),
 
 ]

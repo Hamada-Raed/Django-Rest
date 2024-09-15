@@ -37,29 +37,22 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app1',
-    'rest_framework', 
-    'rest_framework.authtoken', 
 
+    'rest_framework',
+    'rest_framework.authtoken',
+    'app1',
 ]
 
-
 REST_FRAMEWORK = {
-    # 'DEFAULT_AUTHENTICATION_CLASSES': [
-    #     'rest_framework.authentication.BasicAuthentication'
-    # ],
-    
-    # 'DEFAULT_PERMISSION_CLASSES': [
-    #     'rest_framework.permissions.IsAuthenticated'
-    # ]
-
-    #Token
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication'
-    ],
-
-    
+    # 'DEFAULT_AUTHENTICATION_CLASSES':
+    # ['rest_framework.authentication.TokenAuthentication'],
+    # 'DEFAULT_PERMISSION_CLASSES':
+    # ['rest_framework.permissions.IsAuthenticated'],
 }
+
+# AllowAny \\ IsAuthenticated \\ IsAdminuser \\ IsAuthenticatedReadOnly
+# blog > post > post.author -- edit post ?????
+
 
 # Allow any //  is authenticated // is admin user // is auth read only 
 
