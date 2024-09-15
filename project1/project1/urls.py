@@ -14,6 +14,7 @@ router.register('reservation', views.viewsets_reservation)
 
 
 urlpatterns = [
+    #ways to extract JSON data
     path('admin/', admin.site.urls),
     path('django/jsonresponsemomodel/', views.no_rest_no_model),
     path('django/jsonresponsefrommodel/', views.no_rest_from_model),
@@ -31,4 +32,8 @@ urlpatterns = [
     #find movie 
     path('fbv/findMovie/', views.find_movie),
     path('fvb/new_resrvation', views.new_resrvation), 
+
+    #Permission and authentication
+    path('api-auth', include('rest_framework.urls')) # add logout option to the user. 
+
 ]

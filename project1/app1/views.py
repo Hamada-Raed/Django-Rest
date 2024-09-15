@@ -8,8 +8,10 @@ from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from django.http import Http404
 from rest_framework import generics, mixins, viewsets
+from rest_framework.authentication import BasicAuthentication , TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 
-
+#The following ways are the method to extract data as JSON format. 
 def no_rest_no_model(request):
     guests = [
         {
@@ -136,15 +138,21 @@ class Mixins_pk(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.Destr
 class Generics_list(generics.ListCreateAPIView):
     queryset = Guest.objects.all()
     serializer_class = GuestSerializer
+    authentication_classes = [BasicAuthentication]
+    permission_classes = [IsAuthenticated]
 
 class Generics_pk(generics.RetrieveUpdateDestroyAPIView):
     queryset = Guest.objects.all()
     serializer_class = GuestSerializer
+    authentication_classes = [BasicAuthentication]
+    permission_classes = [IsAuthenticated]
 
-# 7 viewsets
+
+# viewsets
 class viewset_guest(viewsets.ModelViewSet): 
     queryset = Guest.objects.all()
     serializer_class = GuestSerializer
+  
 
 class viewsets_movie(viewsets.ModelViewSet): 
     queryset = Movie.objects.all()
@@ -156,7 +164,7 @@ class viewsets_reservation(viewsets.ModelViewSet):
     queryset = Reservation.objects.all()
     serializer_class = ReservationSerializer
 
-#Find movie
+# Find movie
 @api_view(['GET'])
 def find_movie(request):
     movie = request.GET.get('movie')  
@@ -171,7 +179,7 @@ def find_movie(request):
     return Response(serializer.data)
 
 
-#Create new resrvation
+# Create new resrvation
 @api_view(['POST'])
 def new_resrvation(request): 
     movie = Movie.objects.get(
@@ -189,3 +197,7 @@ def new_resrvation(request):
     reservation.save() 
 
     return Response(status = status.HTTP_201_CREATED)
+
+
+# Token & Permissions 
+
